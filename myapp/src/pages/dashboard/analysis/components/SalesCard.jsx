@@ -8,7 +8,7 @@ const rankingListData = [];
 
 for (let i = 0; i < 7; i += 1) {
   rankingListData.push({
-    title: `工专路 ${i} 号店`,
+    title: `no need can remove`,
     total: 323234,
   });
 }
@@ -34,16 +34,16 @@ const SalesCard = ({
           <div className={styles.salesExtraWrap}>
             <div className={styles.salesExtra}>
               <a className={isActive('today')} onClick={() => selectDate('today')}>
-                今日
+                Today
               </a>
               <a className={isActive('week')} onClick={() => selectDate('week')}>
-                本周
+                This Week
               </a>
               <a className={isActive('month')} onClick={() => selectDate('month')}>
-                本月
+                This Month
               </a>
               <a className={isActive('year')} onClick={() => selectDate('year')}>
-                本年
+                This Year
               </a>
             </div>
             <RangePicker
@@ -60,7 +60,7 @@ const SalesCard = ({
           marginBottom: 24,
         }}
       >
-        <TabPane tab="Sales Amount" key="sales">
+        <TabPane tab="To change to approrpiate" key="sales">
           <Row>
             <Col xl={16} lg={12} md={12} sm={24} xs={24}>
               <div className={styles.salesBar}>
@@ -84,14 +84,14 @@ const SalesCard = ({
                   }}
                   title={{
                     visible: true,
-                    text: 'Sales Amounts',
+                    text: 'To change',
                     style: {
                       fontSize: 14,
                     },
                   }}
                   meta={{
                     y: {
-                      alias: 'Views/Foot Traffic',
+                      alias: 'Foot Traffic?',
                     },
                   }}
                 />
@@ -119,7 +119,7 @@ const SalesCard = ({
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="Views/Foot Traffic" key="views">
+        <TabPane tab="Foot Traffic?" key="views">
           <Row>
             <Col xl={16} lg={12} md={12} sm={24} xs={24}>
               <div className={styles.salesBar}>
@@ -143,14 +143,14 @@ const SalesCard = ({
                   }}
                   title={{
                     visible: true,
-                    text: '访问量趋势',
+                    text: 'FootTraffic',
                     style: {
                       fontSize: 14,
                     },
                   }}
                   meta={{
                     y: {
-                      alias: '访问量',
+                      alias: "to change"
                     },
                   }}
                 />

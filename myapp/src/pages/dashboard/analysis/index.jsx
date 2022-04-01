@@ -4,8 +4,7 @@ import { Col, Dropdown, Menu, Row } from 'antd';
 import { GridContent } from '@ant-design/pro-layout';
 import IntroduceRow from './components/IntroduceRow';
 import SalesCard from './components/SalesCard';
-import TopSearch from './components/TopSearch';
-//import ProportionSales from './components/ProportionSales';
+
 import OfflineData from './components/OfflineData';
 import { useRequest } from 'umi';
 import { fakeChartData } from './service';

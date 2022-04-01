@@ -41,7 +41,7 @@ export default () => {
       <Menu.Item key="center">个人中心</Menu.Item>
       <Menu.Item key="settings">个人设置</Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="logout">Log Out</Menu.Item>
+      <Menu.Item key="logout">退出登录</Menu.Item>
     </Menu>
   );
   return (

@@ -1,8 +1,5 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { TinyArea, TinyColumn, Progress } from '@ant-design/charts';
-
-
-
 import { Col, Row, Tooltip } from 'antd';
 import numeral from 'numeral';
 import { ChartCard, Field } from './Charts';
@@ -20,54 +17,25 @@ const topColResponsiveProps = {
   },
 };
 
-
-//can remove if not needed
 const IntroduceRow = ({ loading, visitData }) => (
   <Row gutter={24}>
-    <Col {...topColResponsiveProps}>
-      <ChartCard
-        bordered={false}
-        title="Total Sales"
-        action={
-          <Tooltip title="指标说明">
-            <InfoCircleOutlined />
-          </Tooltip>
-        }
-        loading={loading}
-        total={() => <Yuan>126560</Yuan>}
-        footer={<Field label="Total Earning" value={`￥${numeral(12423).format('0,0')}`} />}
-        contentHeight={46}
-      >
-        <Trend
-          flag="up"
-          style={{
-            marginRight: 16,
-          }}
-        >
-          Weekly Comparison
-          <span className={styles.trendText}>12%</span>
-        </Trend>
-        <Trend flag="down">
-          Daily Comparison
-          <span className={styles.trendText}>11%</span>
-        </Trend>
-      </ChartCard>
-    </Col>
+
 
     <Col {...topColResponsiveProps}>
       <ChartCard
         bordered={false}
         loading={loading}
-        title="Foot Trafic"
+        title="Total Number of Visits"
         action={
-          <Tooltip title="指标说明">
+          <Tooltip title="">
             <InfoCircleOutlined />
           </Tooltip>
         }
         total={numeral(8846).format('0,0')}
-        footer={<Field label="Daily Foot Trafic" value={numeral(1234).format('0,0')} />}
+        footer={<Field label="Today Visits" value={numeral(1234).format('0,0')} />}
         contentHeight={46}
       >
+        {/* graph here */}
         <TinyArea
           color="#975FE4"
           xField="x"
@@ -81,26 +49,9 @@ const IntroduceRow = ({ loading, visitData }) => (
     </Col>
     <Col {...topColResponsiveProps}>
       <ChartCard
-        bordered={false}
-        loading={loading}
-        title="支付笔数"
-        action={
-          <Tooltip title="指标说明">
-            <InfoCircleOutlined />
-          </Tooltip>
-        }
-        total={numeral(6560).format('0,0')}
-        footer={<Field label="转化率" value="60%" />}
-        contentHeight={46}
-      >
-        <TinyColumn xField="x" height={46} forceFit yField="y" data={visitData} />
-      </ChartCard>
-    </Col>
-    <Col {...topColResponsiveProps}>
-      <ChartCard
         loading={loading}
         bordered={false}
-        title="运营活动效果"
+        title="运营活动效果(sales?)"
         action={
           <Tooltip title="指标说明">
             <InfoCircleOutlined />
@@ -148,11 +99,6 @@ const IntroduceRow = ({ loading, visitData }) => (
         />
       </ChartCard>
     </Col>
-
-    <Col {...topColResponsiveProps}>
-     
-    </Col>
-
   </Row>
 );
 
