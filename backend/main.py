@@ -66,13 +66,14 @@ def getLast():
 ### TTN ###
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
-    # To removed here
+    # Subscribe to TTN MQTT Broker
     mqtt.subscribe('v3/p1-05-mall-tracker@ttn/devices/eui-70b3d57ed004df25/up')
-    #mqtt.subscribe('#')
 
 hour_counter = 1
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
+    # When payload received, load as json
+    # and extract the actual message 
     payload = json.loads(message.payload.decode())
     data = dict(
         topic=message.topic,
@@ -81,7 +82,5 @@ def handle_mqtt_message(client, userdata, message):
         time=store_data[len(store_data)-1]['time'] +  datetime.timedelta(hours=1)
     )
     
-    # print(payload['uplink_message']['decoded_payload']['string'])
-
     print("Appending")
     store_data.append(data)
