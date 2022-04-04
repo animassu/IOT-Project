@@ -1,9 +1,8 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { Col, Dropdown, Menu, Row,Card } from 'antd';
 import { GridContent } from '@ant-design/pro-layout';
 import IntroduceRow from './components/IntroduceRow';
-import DemoColumn from './components/SalesCard';
 
 import OfflineData from './components/OfflineData';
 import { useRequest } from 'umi';
@@ -13,9 +12,8 @@ import { getTimeDistance } from './utils/utils';
 import styles from './style.less';
 import DemoHeatmap from './components/HeatMap';
 import ProCard from '@ant-design/pro-card';
-import { G2 } from '@ant-design/charts';
 
-import { Column } from '@ant-design/plots';
+import {getLoraData} from './service'
 
 
 const Analysis = () => {
@@ -23,6 +21,16 @@ const Analysis = () => {
   const [currentTabKey, setCurrentTabKey] = useState('');
   const [rangePickerValue, setRangePickerValue] = useState(getTimeDistance('year'));
   const { loading, data } = useRequest(fakeChartData);
+
+  const [lora, setLora] = useState([])
+
+  useEffect(() => {
+    getLoraData().then((data) => {
+      setLora(data)
+    })
+  }, [])
+
+  console.log(lora)
 
   const selectDate = (type) => {
     setRangePickerValue(getTimeDistance(type));
