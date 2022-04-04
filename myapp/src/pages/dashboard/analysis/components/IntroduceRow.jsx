@@ -17,21 +17,31 @@ const topColResponsiveProps = {
   },
 };
 
+const numOfPeople = 5000 //assuming this is the data from server
+
+const visitDataTemp = {
+  
+}
+
+const data = [
+  //can organise into no. of visit per day
+  264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513, 546, 983, 340, 539, 243, 226, 192,
+];
+
+//here is for the card to display number of people to visit
 const IntroduceRow = ({ loading, visitData }) => (
   <Row gutter={24}>
-
-
     <Col {...topColResponsiveProps}>
       <ChartCard
         bordered={false}
         loading={loading}
-        title="Total Number of Visits"
+        title="Total Number of Visits for this week"
         action={
           <Tooltip title="">
             <InfoCircleOutlined />
           </Tooltip>
         }
-        total={numeral(8846).format('0,0')}
+        total={numeral(numOfPeople).format('0,0')}
         footer={<Field label="Today Visits" value={numeral(1234).format('0,0')} />}
         contentHeight={46}
       >
@@ -43,11 +53,11 @@ const IntroduceRow = ({ loading, visitData }) => (
           forceFit
           yField="y"
           smooth
-          data={visitData}
+          data={data}
         />
       </ChartCard>
     </Col>
-    <Col {...topColResponsiveProps}>
+    {/* <Col {...topColResponsiveProps}>
       <ChartCard
         loading={loading}
         bordered={false}
@@ -98,7 +108,7 @@ const IntroduceRow = ({ loading, visitData }) => (
           ]}
         />
       </ChartCard>
-    </Col>
+    </Col> */}
   </Row>
 );
 

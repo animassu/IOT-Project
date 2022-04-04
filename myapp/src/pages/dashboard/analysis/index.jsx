@@ -1,9 +1,9 @@
 import { Suspense, useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { Col, Dropdown, Menu, Row } from 'antd';
+import { Col, Dropdown, Menu, Row,Card } from 'antd';
 import { GridContent } from '@ant-design/pro-layout';
 import IntroduceRow from './components/IntroduceRow';
-import SalesCard from './components/SalesCard';
+import DemoColumn from './components/SalesCard';
 
 import OfflineData from './components/OfflineData';
 import { useRequest } from 'umi';
@@ -14,6 +14,8 @@ import styles from './style.less';
 import DemoHeatmap from './components/HeatMap';
 import ProCard from '@ant-design/pro-card';
 import { G2 } from '@ant-design/charts';
+
+import { Column } from '@ant-design/plots';
 
 
 const Analysis = () => {
@@ -85,6 +87,7 @@ const Analysis = () => {
     setCurrentTabKey(key);
   };
 
+
   const activeKey = currentTabKey || (data?.offlineData[0] && data?.offlineData[0].name) || '';
   return (
     <GridContent>
@@ -92,18 +95,6 @@ const Analysis = () => {
         <Suspense fallback={<PageLoading />}>
           <IntroduceRow loading={loading} visitData={data?.visitData || []} />
         </Suspense>
-
-        <Suspense fallback={null}>
-          <SalesCard
-            rangePickerValue={rangePickerValue}
-            salesData={data?.salesData || []}
-            isActive={isActive}
-            handleRangePickerChange={handleRangePickerChange}
-            loading={loading}
-            selectDate={selectDate}
-          />
-        </Suspense>
-
 
         <Suspense fallback={null}>
           <OfflineData

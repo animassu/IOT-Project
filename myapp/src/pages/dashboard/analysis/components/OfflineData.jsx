@@ -33,6 +33,60 @@ const CustomTab = ({ data, currentTabKey: currentKey }) => (
 
 const { TabPane } = Tabs;
 
+const data = [
+  {store: "testing", time: '8am', value: 10 }, //x - time , y: foot
+  {store: "testing", time: '9am',value: 15 }, 
+  { store: "testing",time: '10am', value: 0 }, //x - time , y: foot
+  { store: "testing",time: '11am', value: 15 }, //x - time , y: foot
+  {store: "testing", time: '12pm',value: 30 }, 
+  { store: "testing",time: '1pm', value: 20 }, //x - time , y: foot
+  { store: "testing",time: '2pm',value: 40 }, 
+  { store: "testing",time: '3pm',value: 40 }, 
+  {store: "testing", time: '4pm',value: 30 }, 
+  {store: "testing", time: '5pm',value: 20 }, 
+  { store: "testing",time: '6pm',value: 65 }, 
+  { store: "testing",time: '7pm',value: 35 }, 
+  { store: "testing",time: '8pm',value: 17 }, 
+  { store: "testing",time: '9pm',value: 19 }, 
+
+  {store: "testing3", time: '8am', value: 5 }, //x - time , y: foot
+  {store: "testing3", time: '9am',value: 10 }, 
+  { store: "testing3",time: '10am', value: 15 }, //x - time , y: foot
+  { store: "testing3",time: '11am', value: 25 }, //x - time , y: foot
+  {store: "testing3", time: '12pm',value: 40 }, 
+  { store: "testing3",time: '1pm', value: 45 }, //x - time , y: foot
+  { store: "testing3",time: '2pm',value: 51 }, 
+  { store: "testing3",time: '3pm',value: 60 }, 
+  {store: "testing3", time: '4pm',value: 20 }, 
+  {store: "testing3", time: '5pm',value: 10 }, 
+  { store: "testing3",time: '6pm',value: 15 }, 
+  { store: "testing3",time: '7pm',value: 45 }, 
+  { store: "testing3",time: '8pm',value: 47 }, 
+  { store: "testing3",time: '9pm',value: 59 }, 
+];
+
+const config = {
+  data,
+  xField: 'time',
+  yField: 'value',
+  seriesField: 'store',
+  legend: {
+    position: 'top',
+  },
+
+  color: '#a8ddb5',
+  smooth: true,
+  // @TODO 后续会换一种动画方式
+  animation: {
+    appear: {
+      animation: 'path-in',
+      duration: 5000,
+    },
+  },
+};
+
+//https://charts.ant.design/en/examples/line/multiple#line-label
+
 const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handleTabChange }) => (
   <Card
     loading={loading}
@@ -41,23 +95,18 @@ const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handle
     style={{
       marginTop: 32,
     }}
+    title="Foot traffic"
   >
-    <Tabs activeKey={activeKey} onChange={handleTabChange}>
-      {offlineData.map((shop) => (
-        <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
+    
           <div
             style={{
               padding: '0 24px',
             }}
           >
-            <Line
+            <Line {...config}
               forceFit
-              height={400}
-              data={offlineChartData}
+              data={data}
               responsive
-              xField="date"
-              yField="value"
-              seriesField="type"
               interactions={[
                 {
                   type: 'slider',
@@ -67,11 +116,11 @@ const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handle
               legend={{
                 position: 'top-center',
               }}
+              
             />
           </div>
-        </TabPane>
-      ))}
-    </Tabs>
+
+  
   </Card>
 );
 
