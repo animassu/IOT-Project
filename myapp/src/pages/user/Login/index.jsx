@@ -81,9 +81,9 @@ const Login = () => {
       </div>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Monitoring ...."
-          subTitle={"testing 123"}
+          logo={<img alt="logo" src="https://cdn.dribbble.com/users/1787323/screenshots/11310814/media/78d925f388bdfd914f5c84a30261e239.png" />}
+          title="Trackerdoooo"
+          subTitle={"Monitor foot traffic personally"}
           initialValues={{
             autoLogin: true,
           }}

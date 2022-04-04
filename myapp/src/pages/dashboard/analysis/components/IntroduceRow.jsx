@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { TinyArea, TinyColumn, Progress } from '@ant-design/charts';
-import { Col, Row, Tooltip } from 'antd';
+import { Col, Row, Tooltip,Modal  } from 'antd';
 import numeral from 'numeral';
 import { ChartCard, Field } from './Charts';
 
@@ -18,6 +18,15 @@ const topColResponsiveProps = {
   },
 };
 
+function error() {
+  Modal.error({
+    title: 'Loading of Data fail',
+    content: 'Data fail to load, please try again.',
+    onOk() {
+
+    },
+  });
+}
 
 //here is for the card to display number of people to visit
 const IntroduceRow = ({ loading, visitData }) => {
@@ -26,7 +35,11 @@ const IntroduceRow = ({ loading, visitData }) => {
 
   useEffect(() => {
     getLastTrafficData().then((data) => {
-      setTraffic(data)
+      if(data == false){
+        error()
+      }else{
+        setTraffic(data)
+      }
     })
   }, [])
 

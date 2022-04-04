@@ -10,6 +10,7 @@ export async function getTrafficData() {
     return data
   }).catch((error) => {
     console.log("Error Detected", error)
+    return false
   })
 }
 
@@ -20,5 +21,6 @@ export async function getLastTrafficData() {
     return data
   }).catch((error) => {
     console.log("Error Detected", error)
+    return false
   })
 }
