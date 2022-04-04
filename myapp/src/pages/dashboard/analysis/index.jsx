@@ -10,7 +10,7 @@ import { fakeChartData } from './service';
 import PageLoading from './components/PageLoading';
 import { getTimeDistance } from './utils/utils';
 import styles from './style.less';
-import DemoHeatmap from './components/HeatMap';
+import heatmap from "../../../../public/heatmap.png"
 import ProCard from '@ant-design/pro-card';
 
 const Analysis = () => {
@@ -107,18 +107,14 @@ const Analysis = () => {
             marginTop: 24,
           }}
         >
-          {/* <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-              <ProCard colSpan={24}
+          <Col>
+              <ProCard
               layout="center" bordered
+              title="HeatMap of VivoCity"
               >
-                <DemoHeatmap/>
+                <img src={heatmap}/>
               </ProCard>
-          </Col> */}
-          {/* <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-           <ProCard>
-             <DemoHeatmap/>
-           </ProCard>
-          </Col> */}
+          </Col>
           
         </Row>
       </>

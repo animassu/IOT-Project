@@ -3,6 +3,8 @@ from flask_mqtt import Mqtt
 from flask import jsonify
 from flask_cors import CORS
 import datetime
+from heatmappy import Heatmapper
+from PIL import Image
 
 app = Flask(__name__)
 app.config['MQTT_BROKER_URL'] = '0.0.0.0'
@@ -49,14 +51,58 @@ def handle_connect(client, userdata, flags, rc):
     mqtt.subscribe('test')
     #mqtt.subscribe('#')
 
-hour_counter = 1
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
+    heatmap_pts = []
+    store = message.payload.decode()[10:15]
+    value = int(message.payload.decode()[16:len(message.payload.decode())-1])
+
     data = dict(
         topic=message.topic,
-        store=message.payload.decode()[10:15],
-        value=int(message.payload.decode()[16:len(message.payload.decode())-1]),
-        time=store_data[len(store_data)-1]['time'] +  datetime.timedelta(hours=1)
+        store=store,
+        value=value,
+        time=store_data[len(store_data)-1]['time'] + datetime.timedelta(hours=1)
     )
-    print("Appending")
     store_data.append(data)
+
+    first_store = 0
+    for i in range(len(store_data)-1, 0, -1):
+        if store_data[i]['store'] == "01-55":
+            first_store = store_data[i]['value'] 
+            break
+
+    second_store = 0
+    for i in range(len(store_data)-1, 0, -1):
+        if store_data[i]['store'] == "01-40":
+            second_store = store_data[i]['value'] 
+            break
+
+    print("First", first_store)
+    print("Second", second_store)
+            
+
+    if (first_store > 0 and first_store < 25):
+        heatmap_pts = [(295, 900)]
+    if (first_store >= 25 and first_store < 50):
+        heatmap_pts = [(295, 900), (295, 899)]
+    if (first_store >= 50):
+        heatmap_pts = [(295, 900), (295, 899), (295, 898)]
+    
+    if (second_store > 0 and second_store < 25):
+        heatmap_pts.append((643, 750))
+    if (second_store >= 25 and second_store < 50):
+        heatmap_pts.append((643, 750))
+        heatmap_pts.append((643, 749))
+    if (second_store >= 50):
+        heatmap_pts.append((643, 750))
+        heatmap_pts.append((643, 749))
+        heatmap_pts.append((643, 748))
+
+    heatmap_img_path = 'shopping-mall.jpg'
+    heatmap_img = Image.open(heatmap_img_path)
+    heatmapper = Heatmapper()
+    heatmap = heatmapper.heatmap_on_img(heatmap_pts, heatmap_img)
+    heatmap.save('../myapp/public/heatmap.png')
+
+    print("Heatmap Point: ", heatmap_pts)
+    print("Heatmap Complete")
