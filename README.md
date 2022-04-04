@@ -10,3 +10,6 @@ The frontend system that displays in the webapp
 cd myapp 
 run "yarn install" 
 then run "yarn start"
+
+username: admin
+password: ant.design
