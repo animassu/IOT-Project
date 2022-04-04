@@ -18,6 +18,8 @@ cors = CORS(app, resource={
 
 example_list = []
 
+
+
 @app.route('/')
 def index():
     return jsonify(example_list) 

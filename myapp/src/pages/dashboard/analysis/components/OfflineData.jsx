@@ -31,39 +31,12 @@ const CustomTab = ({ data, currentTabKey: currentKey }) => (
   </Row>
 );
 
-const { TabPane } = Tabs;
-
 const data = [
-  {store: "testing", time: '8am', value: 10 }, //x - time , y: foot
-  {store: "testing", time: '9am',value: 15 }, 
-  { store: "testing",time: '10am', value: 0 }, //x - time , y: foot
-  { store: "testing",time: '11am', value: 15 }, //x - time , y: foot
-  {store: "testing", time: '12pm',value: 30 }, 
-  { store: "testing",time: '1pm', value: 20 }, //x - time , y: foot
-  { store: "testing",time: '2pm',value: 40 }, 
-  { store: "testing",time: '3pm',value: 40 }, 
-  {store: "testing", time: '4pm',value: 30 }, 
-  {store: "testing", time: '5pm',value: 20 }, 
-  { store: "testing",time: '6pm',value: 65 }, 
-  { store: "testing",time: '7pm',value: 35 }, 
-  { store: "testing",time: '8pm',value: 17 }, 
-  { store: "testing",time: '9pm',value: 19 }, 
-
-  {store: "testing3", time: '8am', value: 5 }, //x - time , y: foot
-  {store: "testing3", time: '9am',value: 10 }, 
-  { store: "testing3",time: '10am', value: 15 }, //x - time , y: foot
-  { store: "testing3",time: '11am', value: 25 }, //x - time , y: foot
-  {store: "testing3", time: '12pm',value: 40 }, 
-  { store: "testing3",time: '1pm', value: 45 }, //x - time , y: foot
-  { store: "testing3",time: '2pm',value: 51 }, 
-  { store: "testing3",time: '3pm',value: 60 }, 
-  {store: "testing3", time: '4pm',value: 20 }, 
-  {store: "testing3", time: '5pm',value: 10 }, 
-  { store: "testing3",time: '6pm',value: 15 }, 
-  { store: "testing3",time: '7pm',value: 45 }, 
-  { store: "testing3",time: '8pm',value: 47 }, 
-  { store: "testing3",time: '9pm',value: 59 }, 
-];
+  { time: '8am', value: 10 }, //x - time , y: foot
+  { time: '9am',value: 15 }, 
+  { time: '10am', value: 0 }, //x - time , y: foot
+  { time: '11am', value: 15 }, //x - time , y: foot
+ ];
 
 const config = {
   data,
