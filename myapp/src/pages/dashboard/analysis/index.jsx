@@ -13,24 +13,11 @@ import styles from './style.less';
 import DemoHeatmap from './components/HeatMap';
 import ProCard from '@ant-design/pro-card';
 
-import {getLoraData} from './service'
-
-
 const Analysis = () => {
   const [salesType, setSalesType] = useState('all');
   const [currentTabKey, setCurrentTabKey] = useState('');
   const [rangePickerValue, setRangePickerValue] = useState(getTimeDistance('year'));
   const { loading, data } = useRequest(fakeChartData);
-
-  const [lora, setLora] = useState([])
-
-  useEffect(() => {
-    getLoraData().then((data) => {
-      setLora(data)
-    })
-  }, [])
-
-  console.log(lora)
 
   const selectDate = (type) => {
     setRangePickerValue(getTimeDistance(type));
@@ -120,13 +107,13 @@ const Analysis = () => {
             marginTop: 24,
           }}
         >
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+          {/* <Col xl={12} lg={24} md={24} sm={24} xs={24}>
               <ProCard colSpan={24}
               layout="center" bordered
               >
                 <DemoHeatmap/>
               </ProCard>
-          </Col>
+          </Col> */}
           {/* <Col xl={12} lg={24} md={24} sm={24} xs={24}>
            <ProCard>
              <DemoHeatmap/>

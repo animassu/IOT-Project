@@ -3,8 +3,18 @@ export async function fakeChartData() {
   return request('/api/fake_analysis_chart_data');
 }
 
-export async function getLoraData() {
-  return request('http://localhost:5000/', {
+export async function getTrafficData() {
+  return request('http://localhost:5000/data', {
+    method: 'GET'
+  }).then((data) => {
+    return data
+  }).catch((error) => {
+    console.log("Error Detected", error)
+  })
+}
+
+export async function getLastTrafficData() {
+  return request('http://localhost:5000/last', {
     method: 'GET'
   }).then((data) => {
     return data
