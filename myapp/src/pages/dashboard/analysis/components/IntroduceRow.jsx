@@ -44,18 +44,9 @@ const IntroduceRow = ({ loading, visitData }) => {
               <InfoCircleOutlined />
             </Tooltip>
           }
-          total={numeral(traffic.counter).format('0,0')}
           contentHeight={46}
         >
-          {/* graph here */}
-          <TinyArea
-            color="#975FE4"
-            xField="x"
-            height={46}
-            forceFit
-            yField="y"
-            smooth
-          />
+          <h1>{numeral(traffic.counter).format('0,0')}</h1>
         </ChartCard>
       </Col>
     </Row>
