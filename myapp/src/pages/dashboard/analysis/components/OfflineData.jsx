@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Card, Col, Row, Tabs } from 'antd';
-import { RingProgress, Line } from '@ant-design/charts';
-import NumberInfo from './NumberInfo';
+import { Card } from 'antd';
+import { Line } from '@ant-design/charts';
 import styles from '../style.less';
 
 import {getTrafficData} from '../service'
@@ -15,21 +14,22 @@ const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handle
 
   useEffect(() => {
     getTrafficData().then((data) => {
-      setTraffic(data)
+      const trafficData = data.map((raw) => ({
+        ...raw,
+        hour: raw?.hour.toString() + ":00"
+    }))
+      setTraffic(trafficData)
     })
   }, [])
 
+  console.log(traffic)
+
   const config = {
     traffic,
-    xField: 'time',
-    yField: 'value',
-    seriesField: 'store',
-    legend: {
-      position: 'top',
-    },
+    xField: 'hour',
+    yField: 'counter',
   
     color: '#a8ddb5',
-    smooth: true,
     // @TODO 后续会换一种动画方式
     animation: {
       appear: {
@@ -47,32 +47,29 @@ const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handle
     style={{
       marginTop: 32,
     }}
-    title="Foot traffic"
+    title={<h1>Today's Hourly Foot Traffic</h1>}
   >
-    
-          <div
-            style={{
-              padding: '0 24px',
-            }}
-          >
-            <Line {...config}
-              forceFit
-              data={traffic}
-              responsive
-              interactions={[
-                {
-                  type: 'slider',
-                  cfg: {},
-                },
-              ]}
-              legend={{
-                position: 'top-center',
-              }}
-              
-            />
-          </div>
-
-  
+      <div
+        style={{
+          padding: '0 24px',
+        }}
+      >
+        <Line {...config}
+          forceFit
+          data={traffic}
+          responsive
+          interactions={[
+            {
+              type: 'slider',
+              cfg: {},
+            },
+          ]}
+          legend={{
+            position: 'top-center',
+          }}
+          
+        />
+      </div>
   </Card>
   )
 };

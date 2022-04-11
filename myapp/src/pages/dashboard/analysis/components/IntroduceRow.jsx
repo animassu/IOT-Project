@@ -18,16 +18,6 @@ const topColResponsiveProps = {
   },
 };
 
-function error() {
-  Modal.error({
-    title: 'Loading of Data fail',
-    content: 'Data fail to load, please try again.',
-    onOk() {
-
-    },
-  });
-}
-
 //here is for the card to display number of people to visit
 const IntroduceRow = ({ loading, visitData }) => {
 
@@ -35,11 +25,7 @@ const IntroduceRow = ({ loading, visitData }) => {
 
   useEffect(() => {
     getLastTrafficData().then((data) => {
-      if(data == false){
-        error()
-      }else{
-        setTraffic(data)
-      }
+      setTraffic(data[0])
     })
   }, [])
 
@@ -50,13 +36,13 @@ const IntroduceRow = ({ loading, visitData }) => {
         <ChartCard
           bordered={false}
           loading={loading}
-          title={"Total Number of Visits for this hour at " + traffic.time}
+          title={"Total Number of Visits for this hour at " + traffic.date}
           action={
             <Tooltip title="">
               <InfoCircleOutlined />
             </Tooltip>
           }
-          total={numeral(traffic.value).format('0,0')}
+          total={numeral(traffic.counter).format('0,0')}
           contentHeight={46}
         >
           {/* graph here */}

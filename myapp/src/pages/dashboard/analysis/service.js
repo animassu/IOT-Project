@@ -24,3 +24,9 @@ export async function getLastTrafficData() {
     return false
   })
 }
+
+export async function getHeatMap() {
+  return request('http://localhost:5000/heatmap', {
+    method: 'GET'
+  })
+}
