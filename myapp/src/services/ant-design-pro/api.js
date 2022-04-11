@@ -4,12 +4,17 @@
 import { request } from 'umi';
 /** 获取当前的用户 GET /api/currentUser */
 
-export async function currentUser(options) {
-  return request('/api/currentUser', {
+export async function currentUser(values){
+
+  return request(`http://localhost:5000/user/${values.username}/${values.password}`, {
     method: 'GET',
-    ...(options || {}),
-  });
+  }).then((data) => {
+    return data
+  }).catch((error) => {
+    console.log("Error Detected", error)
+  })
 }
+
 /** 退出登录接口 POST /api/login/outLogin */
 
 export async function outLogin(options) {

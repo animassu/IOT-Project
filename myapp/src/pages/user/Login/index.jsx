@@ -1,17 +1,13 @@
 import {
-  AlipayCircleOutlined,
   LockOutlined,
   MobileOutlined,
-  TaobaoCircleOutlined,
   UserOutlined,
-  WeiboCircleOutlined,
 } from '@ant-design/icons';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
 import { useIntl, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import styles from './index.less';
 
@@ -32,43 +28,19 @@ const Login = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const intl = useIntl();
 
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-
-    if (userInfo) {
-      await setInitialState((s) => ({ ...s, currentUser: userInfo }));
-    }
-  };
-
   const handleSubmit = async (values) => {
     try {
-      // 登录
-      const msg = await login({ ...values, type });
+      const userInfo = await initialState?.fetchUserInfo(values);
+      console.log("User Info", userInfo)
 
-      if (msg.status === 'ok') {
-        const defaultLoginSuccessMessage = intl.formatMessage({
-          id: 'pages.login.success',
-          defaultMessage: 'Login Success！',
-        });
-        message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
-        /** 此方法会跳转到 redirect 参数所在的位置 */
-
-        if (!history) return;
-        const { query } = history.location;
-        const { redirect } = query;
-        history.push(redirect || '/');
-        return;
+      if (userInfo.length != 0) {
+        await setInitialState((s) => ({ ...s, currentUser: userInfo }));
+        message.success('Submitted Successfully')
+        history.push('/dashboard')
       }
 
-      console.log(msg); // 如果失败去设置用户错误信息
-
-      setUserLoginState(msg);
+      setUserLoginState(userInfo);
     } catch (error) {
-      const defaultLoginFailureMessage = intl.formatMessage({
-        id: 'pages.login.failure',
-        defaultMessage: 'Login Failure，Please try again！',
-      });
       message.error(defaultLoginFailureMessage);
     }
   };

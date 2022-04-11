@@ -4,7 +4,7 @@ from flask import jsonify
 from flask_cors import CORS
 import datetime
 import psycopg2
-import json
+from flask import request
 
 ### MIGHT NEED TO CHECK DEPENDENCIES HERE; MIGHT BE COMPLCIATED CAN COMMENT OUT FIRST
 from heatmappy import Heatmapper
@@ -96,6 +96,11 @@ def handle_mqtt_message(client, userdata, message):
 
         print("Added new Data")
 
+@app.route('/user/<username>/<password>')
+def getUser(username, password):
+    print(username, password)
+    query = query_db("""SELECT * FROM users WHERE username = %s and password = %s""", (username, password))
+    return jsonify(query)
 
 @app.route('/data')
 def getData():

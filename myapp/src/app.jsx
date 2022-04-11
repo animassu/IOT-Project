@@ -16,10 +16,10 @@ export const initialStateConfig = {
  * */
 
 export async function getInitialState() {
-  const fetchUserInfo = async () => {
+  const fetchUserInfo = async (data) => {
+    localStorage.setItem('User', JSON.stringify(data))
     try {
-      const msg = await queryCurrentUser();
-      return msg.data;
+      return await queryCurrentUser(data);
     } catch (error) {
       history.push(loginPath);
     }
@@ -28,10 +28,10 @@ export async function getInitialState() {
   }; // 如果是登录页面，不执行
 
   if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
+    const userInfo = await fetchUserInfo(JSON.parse(localStorage.getItem('User')));
     return {
       fetchUserInfo,
-      currentUser,
+      currentUser: userInfo,
       settings: {},
     };
   }

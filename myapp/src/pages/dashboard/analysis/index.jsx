@@ -12,7 +12,11 @@ import ProCard from '@ant-design/pro-card';
 
 import {getHeatMap} from './service'
 
+import { useModel } from 'umi';
+
 const Analysis = () => {
+  const { initialState, setInitialState } = useModel('@@initialState');
+  console.log(initialState?.currentUser[0])
 
   useEffect(() => {
     getHeatMap()

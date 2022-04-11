@@ -22,8 +22,6 @@ const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handle
     })
   }, [])
 
-  console.log(traffic)
-
   const config = {
     traffic,
     xField: 'hour',
