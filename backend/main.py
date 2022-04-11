@@ -10,6 +10,7 @@ from heatmappy import Heatmapper
 from PIL import Image
 
 app = Flask(__name__)
+### Configuration for Simulated Mosquito Network
 app.config['MQTT_BROKER_URL'] = '0.0.0.0'
 app.config['MQTT_BROKER_PORT'] = 1883
 app.config['MQTT_REFRESH_TIME'] = 1.0  # refresh time in seconds
@@ -29,6 +30,7 @@ cors = CORS(app, resource={
     }
 })
 
+### Postgresql Cloud Config
 def db():
     connection =  psycopg2.connect(
         dbname = "csc2006",
@@ -65,7 +67,7 @@ def handle_connect(client, userdata, flags, rc):
 #     mqtt.subscribe('v3/p1-05-mall-tracker@ttn/devices/eui-70b3d57ed004df25/up')
 
 
-hour_counter = 1
+### Trigger on each MQTT Message
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
     data = dict(
@@ -73,13 +75,11 @@ def handle_mqtt_message(client, userdata, message):
         store=message.payload.decode()[10:15],
         counter=int(message.payload.decode()[16:len(message.payload.decode())-1]),
     )
-
     query = query_db("""SELECT user_id, date, hour FROM foot_traffic f
                         INNER JOIN users u 
                         ON u.id = f.user_id
                         WHERE u.username = (%s)
                         ORDER BY f.id DESC LIMIT 1""", (data['store'],))
-    cur = db().cursor()
     print(query[0]['date'])
     if int(query[0]['hour']) == 21:
         new_date = query[0]['date'] + datetime.timedelta(days=1)

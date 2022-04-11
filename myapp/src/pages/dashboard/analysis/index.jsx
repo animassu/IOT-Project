@@ -44,7 +44,7 @@ const Analysis = () => {
           <Col>
               <ProCard
               layout="center" bordered
-              title="HeatMap of VivoCity"
+              title={<h1>HeatMap of VivoCity</h1>}
               >
                 <img src={heatmap}/>
               </ProCard>
