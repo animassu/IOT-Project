@@ -27,7 +27,7 @@ Username: 01-40; Password: ant.design
 ## Application Features 
 The application will receive data via the MQTT service in The Thing Network, then the data will be stored on the database on the cloudplus for data persistence 
 
-Each Store different sets of data personalised to their store 
+Each store has different data sets personalised to their store 
 ![image](https://user-images.githubusercontent.com/23652958/162811158-688fef2a-d5c7-4812-863d-5d97f1f1dd50.png)
 
 These are the charts that are providing value to the store owners
