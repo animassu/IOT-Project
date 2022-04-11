@@ -24,6 +24,14 @@ Shopping Mall Stores Login Details
 Username: 01-55; Password: ant.design
 Username: 01-40; Password: ant.design
 
+## Database (Postgresql)
+Configuration:
+- Database: csc2006
+- Host: 174.138.23.75
+- Port: 5432
+- User: postgres
+- Password: cl0udplus!
+
 ## Application Features 
 The application will receive data via the MQTT service in The Thing Network, then the data will be stored on the database on the cloudplus for data persistence 
 
