@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Card } from 'antd';
-import { Line } from '@ant-design/charts';
+import { Area } from '@ant-design/charts';
 import styles from '../style.less';
 
 import {getTrafficData} from '../service'
@@ -54,7 +54,7 @@ const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handle
           padding: '0 24px',
         }}
       >
-        <Line {...config}
+        <Area {...config}
           forceFit
           data={traffic}
           responsive

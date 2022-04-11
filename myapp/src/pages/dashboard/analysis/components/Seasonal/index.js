@@ -3,46 +3,28 @@ import { Card } from 'antd';
 import { Column } from '@ant-design/plots';
 
 import styles from '../../style.less';
+import { getSeasonalData } from '../../service';
 
 const BarChartDemo = () => {
-  const data = [
-    {
-      type: 'Monday',
-      sales: 38,
-    },
-    {
-      type: 'Tuesday',
-      sales: 52,
-    },
-    {
-      type: 'Wedensday',
-      sales: 61,
-    },
-    {
-      type: '美容洗护',
-      sales: 145,
-    },
-    {
-      type: '母婴用品',
-      sales: 48,
-    },
-    {
-      type: '进口食品',
-      sales: 38,
-    },
-    {
-      type: '食品饮料',
-      sales: 38,
-    },
-    {
-      type: '家庭清洁',
-      sales: 38,
-    },
-  ];
+ 
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    getSeasonalData().then((data) => {
+      const seasonal = data.map((raw) => ({
+        ...raw,
+        counter: parseInt(raw?.counter),
+        hour: raw?.hour.toString() + ":00"
+    }))
+
+    setData(seasonal)
+    })
+  }, [])
+
   const config = {
     data,
-    xField: 'type',
-    yField: 'sales',
+    xField: 'hour',
+    yField: 'counter',
     label: {
       // 可手动配置 label 数据标签位置
       position: 'middle',
@@ -75,7 +57,7 @@ const BarChartDemo = () => {
     style={{
       marginTop: 32,
     }}
-    title={<h1>Weekly Seasonal Index</h1>}
+    title={<h1>Hourly Seasonal Index</h1>}
      >
         <Column {...config} />
     </Card>

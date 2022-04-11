@@ -25,6 +25,17 @@ export async function getLastTrafficData() {
   })
 }
 
+export async function getSeasonalData() {
+  return request('http://localhost:5000/seasonal', {
+    method: 'GET'
+  }).then((data) => {
+    return data
+  }).catch((error) => {
+    console.log("Error Detected", error)
+    return false
+  })
+}
+
 export async function getHeatMap() {
   return request('http://localhost:5000/heatmap', {
     method: 'GET'

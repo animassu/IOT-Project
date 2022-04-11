@@ -107,6 +107,11 @@ def getLast():
     query = query_db("SELECT * FROM foot_traffic WHERE user_id = 1 ORDER BY ID DESC LIMIT 1")
     return jsonify(query)
 
+@app.route('/seasonal')
+def getSeasonal():
+    query = query_db("select hour, avg(counter) as counter from foot_traffic where user_id = 1 group by hour ORDER BY hour")
+    return jsonify(query)
+
 @app.route('/heatmap')
 def getHeatMap():
     ### HEAT MAP LOGIC HERE ###
