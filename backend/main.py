@@ -67,7 +67,7 @@ def handle_connect(client, userdata, flags, rc):
 #     mqtt.subscribe('v3/p1-05-mall-tracker@ttn/devices/eui-70b3d57ed004df25/up')
 
 
-### Trigger on each MQTT Message
+### Trigger on each MQTT Message and store in Postgresql Database
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
     data = dict(
@@ -80,7 +80,8 @@ def handle_mqtt_message(client, userdata, message):
                         ON u.id = f.user_id
                         WHERE u.username = (%s)
                         ORDER BY f.id DESC LIMIT 1""", (data['store'],))
-    print(query[0]['date'])
+    
+    # Check whatever it is a new data
     if int(query[0]['hour']) == 21:
         new_date = query[0]['date'] + datetime.timedelta(days=1)
         query_db('INSERT INTO foot_traffic (user_id, counter, date, hour) VALUES (%s, %s, %s, %s)',
@@ -95,12 +96,14 @@ def handle_mqtt_message(client, userdata, message):
 
         print("Added new Data")
 
+### GET Login Details
 @app.route('/user/<username>/<password>')
 def getUser(username, password):
     print(username, password)
     query = query_db("""SELECT * FROM users WHERE username = %s and password = %s""", (username, password))
     return jsonify(query)
 
+### Get Store Data
 @app.route('/data/<store_id>')
 def getData(store_id):
     query = query_db("""SELECT * FROM foot_traffic f
@@ -114,6 +117,7 @@ def getData(store_id):
                             (store_id, store_id))
     return jsonify(query)
 
+### Get Current Number of People in Store
 @app.route('/last/<store_id>')
 def getLast(store_id):
     query = query_db("""SELECT * FROM foot_traffic f
@@ -124,6 +128,7 @@ def getLast(store_id):
                     """, (store_id,))
     return jsonify(query)
 
+### Get Hourly Seasonal Data
 @app.route('/seasonal/<store_id>')
 def getSeasonal(store_id):
     query = query_db("""SELECT hour, avg(counter) as counter from foot_traffic f
@@ -133,6 +138,7 @@ def getSeasonal(store_id):
                         """, (store_id,))
     return jsonify(query)
 
+### Generate Heatmap
 @app.route('/heatmap')
 def getHeatMap():
     ### HEAT MAP LOGIC HERE ###
