@@ -4,6 +4,7 @@ import { TinyArea, TinyColumn, Progress } from '@ant-design/charts';
 import { Col, Row, Tooltip,Modal  } from 'antd';
 import numeral from 'numeral';
 import { ChartCard, Field } from './Charts';
+import { useModel } from 'umi';
 
 import {getLastTrafficData} from '../service'
 
@@ -20,11 +21,12 @@ const topColResponsiveProps = {
 
 //here is for the card to display number of people to visit
 const IntroduceRow = ({ loading, visitData }) => {
-
+  const { initialState, setInitialState } = useModel('@@initialState');
   const [traffic, setTraffic] = useState([])
+  const currentUser = initialState?.currentUser
 
   useEffect(() => {
-    getLastTrafficData().then((data) => {
+    getLastTrafficData(currentUser[0]).then((data) => {
       setTraffic(data[0])
     })
   }, [])

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from 'antd';
 import { Column } from '@ant-design/plots';
+import { useModel } from 'umi';
 
 import styles from '../../style.less';
 import { getSeasonalData } from '../../service';
 
 const BarChartDemo = () => {
- 
+  const { initialState, setInitialState } = useModel('@@initialState');
   const [data, setData] = useState([])
+  const currentUser = initialState?.currentUser
 
   useEffect(() => {
-    getSeasonalData().then((data) => {
+    getSeasonalData(currentUser[0]).then((data) => {
       const seasonal = data.map((raw) => ({
         ...raw,
         counter: parseInt(raw?.counter),

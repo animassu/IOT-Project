@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card } from 'antd';
 import { Area } from '@ant-design/charts';
 import styles from '../style.less';
+import { useModel } from 'umi';
 
 import {getTrafficData} from '../service'
 
@@ -9,11 +10,12 @@ import {getTrafficData} from '../service'
 //https://charts.ant.design/en/examples/line/multiple#line-label
 
 const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handleTabChange }) => {
-
+  const { initialState, setInitialState } = useModel('@@initialState');
   const [traffic, setTraffic] = useState([])
+  const currentUser = initialState?.currentUser
 
   useEffect(() => {
-    getTrafficData().then((data) => {
+    getTrafficData(currentUser[0]).then((data) => {
       const trafficData = data.map((raw) => ({
         ...raw,
         hour: raw?.hour.toString() + ":00"

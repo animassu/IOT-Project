@@ -6,7 +6,6 @@ import datetime
 import psycopg2
 from flask import request
 
-### MIGHT NEED TO CHECK DEPENDENCIES HERE; MIGHT BE COMPLCIATED CAN COMMENT OUT FIRST
 from heatmappy import Heatmapper
 from PIL import Image
 
@@ -102,19 +101,36 @@ def getUser(username, password):
     query = query_db("""SELECT * FROM users WHERE username = %s and password = %s""", (username, password))
     return jsonify(query)
 
-@app.route('/data')
-def getData():
-    query = query_db("""SELECT * FROM foot_traffic WHERE user_id = 1 and date=(SELECT MAX(DATE) from foot_traffic WHERE user_id = 1)""")
+@app.route('/data/<store_id>')
+def getData(store_id):
+    query = query_db("""SELECT * FROM foot_traffic f
+                            INNER JOIN users u 
+                            on u.id = f.user_id
+                            WHERE u.username = %s and date= (SELECT MAX(DATE) from foot_traffic f
+                                                                INNER JOIN users u 
+                                                                on u.id = f.user_id
+                                                                WHERE u.username = %s)
+                            ORDER BY f.hour""", 
+                            (store_id, store_id))
     return jsonify(query)
 
-@app.route('/last')
-def getLast():
-    query = query_db("SELECT * FROM foot_traffic WHERE user_id = 1 ORDER BY ID DESC LIMIT 1")
+@app.route('/last/<store_id>')
+def getLast(store_id):
+    query = query_db("""SELECT * FROM foot_traffic f
+                     INNER JOIN users u 
+                     on u.id = f.user_id 
+                     WHERE u.username = %s
+                     ORDER BY f.id DESC LIMIT 1
+                    """, (store_id,))
     return jsonify(query)
 
-@app.route('/seasonal')
-def getSeasonal():
-    query = query_db("select hour, avg(counter) as counter from foot_traffic where user_id = 1 group by hour ORDER BY hour")
+@app.route('/seasonal/<store_id>')
+def getSeasonal(store_id):
+    query = query_db("""SELECT hour, avg(counter) as counter from foot_traffic f
+                        INNER JOIN users u 
+                        on u.id = f.user_id
+                        WHERE u.username = %s group by hour ORDER BY hour
+                        """, (store_id,))
     return jsonify(query)
 
 @app.route('/heatmap')
