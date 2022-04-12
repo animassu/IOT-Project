@@ -6,20 +6,20 @@ import datetime
 import psycopg2
 from flask import request
 
-from heatmappy import Heatmapper
+# from heatmappy import Heatmapper
 from PIL import Image
 
 app = Flask(__name__)
 ### Configuration for Simulated Mosquito Network
-app.config['MQTT_BROKER_URL'] = '0.0.0.0'
-app.config['MQTT_BROKER_PORT'] = 1883
-app.config['MQTT_REFRESH_TIME'] = 1.0  # refresh time in seconds
+# app.config['MQTT_BROKER_URL'] = '0.0.0.0'
+# app.config['MQTT_BROKER_PORT'] = 1883
+# app.config['MQTT_REFRESH_TIME'] = 1.0  # refresh time in seconds
 
 ### Configuration for the things network
-# app.config['MQTT_BROKER_URL'] = 'au1.cloud.thethings.network'
-# app.config['MQTT_BROKER_PORT'] = 1883
-# app.config['MQTT_USERNAME'] = 'p1-05-mall-tracker@ttn'
-# app.config['MQTT_PASSWORD'] = 'NNSXS.R6IEXJFZ53YFNSXIFDW33GWGB7QSUZ7F23TKWFQ.YSYYI4ESMDEONNMACH4OEMK2OWQUG76IRX2IQQHP2VYNSI7OHRAQ'
+app.config['MQTT_BROKER_URL'] = 'au1.cloud.thethings.network'
+app.config['MQTT_BROKER_PORT'] = 1883
+app.config['MQTT_USERNAME'] = 'p1-05-mall-tracker@ttn'
+app.config['MQTT_PASSWORD'] = 'NNSXS.R6IEXJFZ53YFNSXIFDW33GWGB7QSUZ7F23TKWFQ.YSYYI4ESMDEONNMACH4OEMK2OWQUG76IRX2IQQHP2VYNSI7OHRAQ'
 
 mqtt = Mqtt(app)
 
@@ -180,9 +180,9 @@ def getHeatMap():
 
     heatmap_img_path = 'shopping-mall.jpg'
     heatmap_img = Image.open(heatmap_img_path)
-    heatmapper = Heatmapper()
-    heatmap = heatmapper.heatmap_on_img(heatmap_pts, heatmap_img)
-    heatmap.save('../myapp/public/heatmap.png')
+    # heatmapper = Heatmapper()
+    # heatmap = heatmapper.heatmap_on_img(heatmap_pts, heatmap_img)
+    # heatmap.save('../myapp/public/heatmap.png')
 
     print("Heatmap Point: ", heatmap_pts)
     print("Heatmap Complete")

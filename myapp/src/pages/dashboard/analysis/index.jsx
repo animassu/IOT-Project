@@ -2,6 +2,8 @@ import { Suspense, useEffect} from 'react';
 import { Col, Dropdown, Menu, Row,Card } from 'antd';
 import { GridContent } from '@ant-design/pro-layout';
 import IntroduceRow from './components/IntroduceRow';
+import StoreNo from './components/StoreNo';
+import CurrentDateTime from './components/CurrentDateTime';
 
 import OfflineData from './components/OfflineData';
 import BarChartDemo from './components/Seasonal/index'
@@ -30,7 +32,11 @@ const Analysis = () => {
         </Suspense>
 
         <Suspense fallback={null}>
-          <OfflineData/>
+          <StoreNo />
+        </Suspense>
+
+        <Suspense fallback={null}>
+          <CurrentDateTime/>
         </Suspense>
 
         <BarChartDemo />
